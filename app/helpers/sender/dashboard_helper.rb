@@ -1,0 +1,2 @@
+module Sender::DashboardHelper
+end

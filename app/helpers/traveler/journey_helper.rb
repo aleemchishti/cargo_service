@@ -1,0 +1,2 @@
+module Traveler::JourneyHelper
+end

@@ -1,0 +1,2 @@
+module Traveler::DashboardHelper
+end
