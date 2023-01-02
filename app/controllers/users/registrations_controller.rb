@@ -53,9 +53,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # The path used after sign up.
   def after_sign_up_path_for(resource)
     if current_user.traveler?
-      traveler_dashboard_index_path
+      root_path
     elsif current_user.sender?
-      sender_dashboard_index_path
+      root_path
     end
   end 
 

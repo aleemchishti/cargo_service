@@ -1,1 +1,35 @@
-orders#index
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <div class='container'> 
+      <br><br>
+      <h1>Orders</h1>
+      <br>
+      <br>
+      <table>
+        <thead>
+          <table class="w3-table-all">
+          <tr class="w3-light-grey w3-hover-grey">
+            <th>Sender Name</th>
+            <th>Receiver Name</th>
+            <th>Destination</th>
+            <th>Contact</th>
+            <th>Weight</th>
+            <th colspan = '3'>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @orders.each do |order| %>
+            <tr class="w3-hover-grey">
+            <td> <%= order.sender_name %> </td>
+            <td> <%= order.receiver_name%> </td>
+            <td> <%= order.destination %> </td>
+            <td> <%= order.contact %> </td>
+            <td> <%= order.weight %> </td>
+            <td><%= link_to 'View',order_url(order), class: 'btn btn-light'%></td>  
+            <td><%= link_to 'Delete',order_url(order), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+</div>

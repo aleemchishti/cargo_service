@@ -1,0 +1,22 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<div class="container">
+
+  <br><br>
+
+  <h1>Order</h1>
+  <div class="card" style="width: 80rem; font-size: 20px;">
+  <div class="card-body">
+    <%= @order.sender_name %><p>
+    <%= @order.receiver_name %>
+    <%= @order.destination %>
+    <%= @order.contact %>
+    <%= @order.weight %>
+
+    <br><br>
+
+    <%= link_to "Back", orders_path, class: 'btn btn-primary'%>
+    <td><%= link_to 'Edit', edit_order_url(@order), class: 'btn btn-warning'%></td>
+  </div>
+</div>

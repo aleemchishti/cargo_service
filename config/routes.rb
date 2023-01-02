@@ -8,14 +8,14 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
 
-       namespace :traveler do 
-              resources :dashboard, only: [:index]
+       namespace :traveler do
+              resources :dashboards, only: [:index]
        end
 
        namespace :traveler do 
-              resources :journey
+              resources :journeys
        end 
        namespace :sender do
-              resources :dashboard
+              resources :dashboards
        end 
 end
