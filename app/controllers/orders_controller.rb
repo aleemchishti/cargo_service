@@ -2,7 +2,9 @@ class OrdersController < ApplicationController
 	before_action :authenticate_user!
 	before_action :redirect_if_traveler, only: %i[new]
 	def index
-		@orders = Order.all
+		# @orders = Order.all
+		@orders = Order.where(:user_id => current_user.id)
+
 	end
 
 	def new
@@ -51,14 +53,18 @@ class OrdersController < ApplicationController
 		end
 	end 
 
+	def sender_orders
+    	@orders = Order.where(:user_id => current_user.id)
+	end
+
+
 	private 
 		def order_params
-			params.require(:order).permit(:sender_name, :receiver_name, :destination, :contact, :weight)
+			params.require(:order).permit(:from,:to,:weight_in_kgs,:sender_name, :receiver_name,:contact,:capacity)
 		end
 		def redirect_if_traveler
 			if current_user.role=='traveler'
 				redirect_to root_path,notice:"not authorized"
 			end 
-
 		end 
 end

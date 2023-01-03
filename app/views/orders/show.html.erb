@@ -8,11 +8,12 @@
   <h1>Order</h1>
   <div class="card" style="width: 80rem; font-size: 20px;">
   <div class="card-body">
-    <%= @order.user.first_name %><p>
+    <%= @order.from %><p>
+    <%= @order.to %>
+    <%= @order.weight_in_kgs %>
+    <%= @order.sender_name %>
     <%= @order.receiver_name %>
-    <%= @order.destination %>
     <%= @order.contact %>
-    <%= @order.weight %>
 
     <br><br>
 
