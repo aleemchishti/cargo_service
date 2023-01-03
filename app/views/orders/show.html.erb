@@ -8,7 +8,7 @@
   <h1>Order</h1>
   <div class="card" style="width: 80rem; font-size: 20px;">
   <div class="card-body">
-    <%= @order.sender_name %><p>
+    <%= @order.user.first_name %><p>
     <%= @order.receiver_name %>
     <%= @order.destination %>
     <%= @order.contact %>
