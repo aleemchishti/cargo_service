@@ -1,9 +1,8 @@
 class Sender::DashboardsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :only_senders
-
-	def index
-	end 
+	
+	def index; end
 
 	def only_senders
     if current_user.role=='sender'

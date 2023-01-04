@@ -40,6 +40,11 @@
                    <%= link_to "List of Journeys", traveler_journeys_path, class: "nav-link" %>
                 </li>
             <%end%>
+            <% if current_user && current_user.role=="sender" %>
+                <li class="nav-item active">
+                   <%= link_to "Destinations",journey_list_path, class: "nav-link" %>
+                </li>
+            <%end%>
             <% if current_user && current_user.role=="traveler" %>
                 <li class="nav-item active">
                    <%= link_to "Create a journey", new_traveler_journey_path, class: "nav-link" %>
@@ -48,11 +53,6 @@
             <% if current_user && current_user.role=="sender" %>
                 <li class="nav-item active">
                    <%= link_to "Your Orders", orders_path, class: "nav-link" %>
-                </li>
-            <%end%>
-            <% if current_user && current_user.role=="sender" %>
-                <li class="nav-item active">
-                   <%= link_to "Create an Order",new_order_path,class: "nav-link" %>
                 </li>
             <%end%>
           </ul>
@@ -65,6 +65,7 @@
     </nav>
     <div
       class="bg-image"style="background-image: url('https://img.freepik.com/premium-photo/smooth-empty-grey-studio-well-use-as-background_1258-3149.jpg?w=2000');height: 120vh;"> 
+      <br>
       <%=yield%>
     </div>
   </body>

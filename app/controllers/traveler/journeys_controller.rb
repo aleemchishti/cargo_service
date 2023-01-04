@@ -1,6 +1,5 @@
 class Traveler::JourneysController < ApplicationController
   before_action :authenticate_user!
-  before_action :only_for_travelers
 
   def index
     @journeys = Journey.all
@@ -26,16 +25,18 @@ class Traveler::JourneysController < ApplicationController
   end
 
   def show
-    @journey = Journey.find(params[:id])
+      @journey = Journey.find_by(id:params[:id])
   end 
   
   def edit
-    @journey = Journey.find(params[:id])
-  end
+    if current_user.role=='traveler'
+     @journey = Journey.find_by(id:params[:id])
+    end
+  end 
 
   def update 
     if current_user.role=='traveler'
-      @journey = Journey.find(params[:id])
+      @journey = Journey.find_by(id:params[:id])
       if @journey.update(journey_params)
         redirect_to traveler_journey_path
       else
@@ -46,21 +47,22 @@ class Traveler::JourneysController < ApplicationController
 
   def destroy
     if current_user.role=='traveler'
-      @journey = Journey.find(params[:id])
+      @journey = Journey.find_by(id:params[:id])
       @journey.destroy
       redirect_to traveler_journey_url
     end 
   end 
+
+  def journey_list
+    if current_user.role=='sender'
+      @journeys=Journey.all
+    end
+  end  
+
 
   private 
 
     def journey_params
       params.require(:journey).permit(:from, :to, :departure, :rate, :capacity)
     end
-
-    def only_for_travelers
-      if current_user.role=='traveler'
-        traveler_dashboards_path
-      end 
-    end 
 end
