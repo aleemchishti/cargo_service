@@ -15,7 +15,7 @@ Rails.application.routes.draw do
        namespace :traveler do 
               resources :journeys
        end 
-       get 'journey_list', action: :journey_list, controller: 'traveler/journeys'
+       get 'journey_list',to: 'traveler/journeys#journey_list'
        namespace :sender do
               resources :dashboards
        end 
