@@ -26,18 +26,18 @@ class OrdersController < ApplicationController
 	end 
 
 	def show
-		@order = Order.find(params[:id])
+		@order = Order.find_by(id: params[:id])
 	end 
 		
 	def edit
 		if current_user.role=='sender'
-			@order = Order.find(params[:id])
+			@order = Order.find_by(id: params[:id])
 		end 
 	end
 
 	def update 
 	 	if current_user.role=='sender'
-			@order = Order.find(params[:id])
+			@order = Order.find_by(id: params[:id])
 			if @order.update(order_params)
 				redirect_to orders_path
 			else
@@ -48,14 +48,14 @@ class OrdersController < ApplicationController
 
 	def destroy
 		if current_user.role=='sender'
-			@order = Order.find(params[:id])
+			@order = Order.find_by(id: params[:id])
 			@order.destroy
 			redirect_to orders_url , :notice => "order has been deleted"
 		end
 	end 
 
 	def sender_orders
-	    @orders = Order.where(:user_id => current_user.id)
+	    @orders = Order.where(user_id:current_user.id)
 	end
 
 	private 

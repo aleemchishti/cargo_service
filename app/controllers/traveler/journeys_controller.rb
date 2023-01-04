@@ -25,18 +25,18 @@ class Traveler::JourneysController < ApplicationController
   end
 
   def show
-      @journey = Journey.find(params[:id])
+      @journey = Journey.find_by(id:params[:id])
   end 
   
   def edit
     if current_user.role=='traveler'
-     @journey = Journey.find(params[:id])
+     @journey = Journey.find_by(id:params[:id])
     end
   end 
 
   def update 
     if current_user.role=='traveler'
-      @journey = Journey.find(params[:id])
+      @journey = Journey.find_by(id:params[:id])
       if @journey.update(journey_params)
         redirect_to traveler_journey_path
       else
@@ -47,7 +47,7 @@ class Traveler::JourneysController < ApplicationController
 
   def destroy
     if current_user.role=='traveler'
-      @journey = Journey.find(params[:id])
+      @journey = Journey.find_by(id:params[:id])
       @journey.destroy
       redirect_to traveler_journey_url
     end 
