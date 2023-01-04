@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_03_082717) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_04_080214) do
   create_table "journeys", force: :cascade do |t|
     t.string "from"
     t.string "to"
@@ -26,18 +26,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_03_082717) do
   create_table "line_items", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "item"
     t.integer "order_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "sender_name"
-    t.string "receiver_name"
-    t.integer "contact"
-    t.decimal "weight_in_kgs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "sender_name"
+    t.string "receiver_name"
+    t.integer "weight"
+    t.integer "contact"
     t.string "from"
     t.string "to"
     t.index ["user_id"], name: "index_orders_on_user_id"
@@ -61,6 +62,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_03_082717) do
   end
 
   add_foreign_key "journeys", "users"
-  add_foreign_key "line_items", "orders"
   add_foreign_key "orders", "users"
 end

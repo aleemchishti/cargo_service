@@ -32,4 +32,11 @@ class Users::SessionsController < Devise::SessionsController
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:role])
   end
+  def only_senders
+    if current_user.role=='sender'
+      sender_dashboards_path
+    else
+      root_path
+    end 
+  end 
 end
