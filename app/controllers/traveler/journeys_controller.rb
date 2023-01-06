@@ -6,14 +6,14 @@ class Traveler::JourneysController < ApplicationController
   end
 
   def new
-    if current_user.role=='traveler'
+    if current_user.traveler?
       @journey = Journey.new
       @journey.user_id = current_user.id
     end 
   end
 
   def create 
-    if current_user.role=='traveler'
+    if current_user.traveler?
       @journey = Journey.new(journey_params)
       @journey.user_id = current_user.id
       if @journey.save 
@@ -29,13 +29,13 @@ class Traveler::JourneysController < ApplicationController
   end 
   
   def edit
-    if current_user.role=='traveler'
+    if current_user.traveler?
      @journey = Journey.find_by(id:params[:id])
     end
   end 
 
   def update 
-    if current_user.role=='traveler'
+    if current_user.traveler?
       @journey = Journey.find_by(id:params[:id])
       if @journey.update(journey_params)
         redirect_to traveler_journey_path
@@ -46,7 +46,7 @@ class Traveler::JourneysController < ApplicationController
   end 
 
   def destroy
-    if current_user.role=='traveler'
+    if current_user.traveler?
       @journey = Journey.find_by(id:params[:id])
       @journey.destroy
       redirect_to traveler_journey_url
@@ -54,7 +54,7 @@ class Traveler::JourneysController < ApplicationController
   end 
 
   def journey_list
-    if current_user.role=='sender'
+    if current_user.sender?
       @journeys=Journey.all
     end
   end  
