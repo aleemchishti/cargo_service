@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
 	before_action :redirect_if_traveler, only: %i[new]
 
 	def index
-	  @orders = Order.where(user_id:current_user.id)
+		@orders = current_user.orders 
 	end
 
 	def new
@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
 	end
 
 	def create 
-	  	if current_user.role=='sender'
+	  	if current_user.sender?
 		 @order = Order.new(order_params)
 		 @order.user_id = current_user.id
 		   	if  @order.save 

@@ -5,6 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   enum role: [:sender, :traveler]
-  has_one :journey
+  has_many :journey
   has_many :orders
 end

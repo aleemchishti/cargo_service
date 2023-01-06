@@ -16,11 +16,11 @@
           <nav class="navbar navbar-light bg-light">
             <div class="container">
               <a class="navbar-brand" href="#">
-                <img src="https://www.cargologistics.com.au/wp-content/uploads/2020/07/logo-cargo-min-2-e1595584682987.png" alt="Logo" width="100" height="20">
+                <img src="https://www.clipartmax.com/png/middle/306-3067914_blue-and-red-airline-logo.png" alt="Logo" width="120" height="30">
               </a>
             </div>
           </nav>
-        <a><%=link_to 'CargoLogistics',root_path,class:"navbar-brand"%></a>
+        <a><%=link_to 'Courierails',root_path,class:"navbar-brand"%></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -30,27 +30,27 @@
               <%=link_to 'Home',root_path, class:"nav-link active"%>
             </li>
             
-            <% if current_user && current_user.role=="traveler" %>
+            <% if current_user && current_user.traveler? %>
                 <li class="nav-item active">
                    <%= link_to "Recieved Orders", orders_path, class: "nav-link" %>
                 </li>
             <%end%>
-            <% if current_user && current_user.role=="traveler" %>
+            <% if current_user && current_user.traveler? %>
                 <li class="nav-item active">
                    <%= link_to "Your Journeys", traveler_journeys_path, class: "nav-link" %>
                 </li>
             <%end%>
-            <% if current_user && current_user.role=="sender" %>
+            <% if current_user && current_user.sender? %>
                 <li class="nav-item active">
                    <%= link_to "Destinations",journey_list_path, class: "nav-link" %>
                 </li>
             <%end%>
-            <% if current_user && current_user.role=="traveler" %>
+            <% if current_user && current_user.traveler? %>
                 <li class="nav-item active">
                    <%= link_to "Create a journey", new_traveler_journey_path, class: "nav-link" %>
                 </li>
             <%end%>
-            <% if current_user && current_user.role=="sender" %>
+            <% if current_user && current_user.sender? %>
                 <li class="nav-item active">
                    <%= link_to "Your Orders", orders_path, class: "nav-link" %>
                 </li>

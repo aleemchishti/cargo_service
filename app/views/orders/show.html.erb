@@ -6,7 +6,7 @@
       <h3>From: <%= @order.from %></h3>
       <h3>To: <%= @order.to %></h3>
       <h3>Weight: <%= @order.weight %></h3>
-      <h3>Sender: <%= @order.sender_name %></h3>
+      <h3>Sender: <%=@order.user.first_name%></h3>
       <h3>Receiver: <%= @order.receiver_name %></h3>
       <h3>Contact: <%= @order.contact %></h3>
       <br>

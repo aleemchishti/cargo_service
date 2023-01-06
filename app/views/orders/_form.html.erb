@@ -4,7 +4,7 @@
   <br>
   <div class="form-group">
       <%= form.label :travelers, class:'form-label mb-2 mt-3' %><br />
-      <%= form.select :travelers,User.all.traveler.pluck(:first_name),{prompt:'Select'},{class: "form-control"}%>
+      <%= form.select :travelers,User.traveler.pluck(:first_name),{prompt:'Select'},{class: "form-control"}%>
   <div class="form-group">
       <%= form.label :from, class:'form-label mb-2 mt-3' %><br />
       <%= form.select :from,Journey.all.pluck(:from),{prompt:'Select'},{class: "form-control"}%>
@@ -32,9 +32,6 @@
 
   <div>
     <%= form.submit class: "btn btn-primary"%>
-    <%= link_to 'Back', orders_path, class: "btn btn-secondary"%>
+    <%= link_to 'Back',journey_list_path, class: "btn btn-secondary"%>
   </div>
 <% end %>
-<script type="text/javascript">
-  const x= document.getElementbyId('user')
-</script>
