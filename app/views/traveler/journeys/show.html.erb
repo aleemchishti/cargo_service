@@ -1,13 +1,10 @@
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <div class="container">
   <h1>Journey Details</h1>
-    <h3>From: <%=@journey.from %></h3>
-    <h3>To: <%=@journey.to %></h3>
-    <h3>Departure Date: <%=@journey.departure %></h3>
-    <h3>Capacity: <%=@journey.capacity %></h3>
-    <h3>Rate: <%=@journey.rate %></h3><br>
-    <%= link_to "Back", traveler_journeys_path(@journeys), class: 'btn btn-primary'%>
-    <td><%= link_to 'Edit', edit_traveler_journey_url(@journey), class: 'btn btn-warning'%></td>
-  </div>  
+  <h3>From: <%=@journey.from %></h3>
+  <h3>To: <%=@journey.to %></h3>
+  <h3>Departure Date: <%=@journey.departure %></h3>
+  <h3>Capacity: <%=@journey.capacity %></h3>
+  <h3>Rate: <%=@journey.rate %></h3><br>
+  <%= link_to "Back", traveler_journeys_path(@journeys), class: 'btn btn-primary'%>
+  <td><%= link_to 'Edit', edit_traveler_journey_url(@journey), class: 'btn btn-warning'%></td>
+</div>  

@@ -3,7 +3,11 @@ class OrdersController < ApplicationController
 	before_action :redirect_if_traveler, only: %i[new]
 
 	def index
-		@orders = current_user.orders 
+		if current_user.sender?
+		@orders = current_user.s_orders 
+		else
+		@orders = current_user.t_orders
+		end
 	end
 
 	def new
@@ -13,16 +17,11 @@ class OrdersController < ApplicationController
 	end
 
 	def create 
-	  	if current_user.sender?
-		 @order = Order.new(order_params)
-		 @order.user_id = current_user.id
-		   	if  @order.save 
+	  	if current_user.s_orders.create(order_params) 
 			 redirect_to orders_path
-			else
-			 render :new 
-			 flash.alert = "User not found."
-			end 
-		end 
+		else
+			render :new 
+		end  
 	end 
 
 	def show
@@ -36,7 +35,7 @@ class OrdersController < ApplicationController
 	end
 
 	def update 
-	 	if current_user.sender
+	 	if current_user.sender?
 			@order = Order.find_by(id: params[:id])
 			if @order.update(order_params)
 				redirect_to orders_path
@@ -52,16 +51,18 @@ class OrdersController < ApplicationController
 			@order.destroy
 			redirect_to orders_url , :notice => "order has been deleted"
 		end
-	end 
-
-	def sender_orders
-	    @orders = Order.where(user_id:current_user.id)
 	end
+
+	def received_orders
+		if current_user.traveler?
+			@orders = current_user.t_orders
+		end 
+	end 
 
 	private 
 
 	def order_params
-		params.require(:order).permit(:from,:to,:weight,:sender_name, :receiver_name,:contact,:capacity)
+		params.require(:order).permit(:traveler_id, :from, :to, :weight, :sender_name, :receiver_name, :contact, :capacity)
 	end
 
 	def redirect_if_traveler

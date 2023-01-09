@@ -1,10 +1,9 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">  
-<%= form_with(model: order) do |form| %>
+ <%= form_with(model: order) do |form| %>
 
   <br>
   <div class="form-group">
       <%= form.label :travelers, class:'form-label mb-2 mt-3' %><br />
-      <%= form.select :travelers,User.traveler.pluck(:first_name),{prompt:'Select'},{class: "form-control"}%>
+      <%= form.select :traveler_id,User.traveler.map{|u| [u.first_name, u.id]},{prompt:'Select'},{class: "form-control"}%>
   <div class="form-group">
       <%= form.label :from, class:'form-label mb-2 mt-3' %><br />
       <%= form.select :from,Journey.all.pluck(:from),{prompt:'Select'},{class: "form-control"}%>
@@ -17,7 +16,10 @@
       <%= form.label :weight, class:'form-label mb-2 mt-3' %><br />
       <%= form.select :weight,Journey.all.pluck(:capacity),{prompt:'Select'},{class: "form-control"}%>
     </div>
-
+    <div class='form-group'>
+    <%= form.label :sender_name, class:'form-label mb-2 mt-3',rows:'4',cols:'50' %>
+    <%= form.text_field :sender_name, class:'form-control form-control-lg' %>
+  </div>
   <div class='form-group'>
     <%= form.label :receiver_name, class:'form-label mb-2 mt-3',rows:'4',cols:'50' %>
     <%= form.text_field :receiver_name, class:'form-control form-control-lg' %>

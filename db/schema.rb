@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_05_124705) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_09_061018) do
   create_table "journeys", force: :cascade do |t|
     t.string "from"
     t.string "to"
@@ -40,8 +40,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_124705) do
     t.integer "contact"
     t.string "from"
     t.string "to"
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.integer "traveler_id"
+    t.integer "sender_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,5 +62,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_05_124705) do
   end
 
   add_foreign_key "journeys", "users"
-  add_foreign_key "orders", "users"
 end
