@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_04_080214) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_05_124705) do
   create_table "journeys", force: :cascade do |t|
     t.string "from"
     t.string "to"
@@ -34,13 +34,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_04_080214) do
   create_table "orders", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
     t.string "sender_name"
     t.string "receiver_name"
     t.integer "weight"
     t.integer "contact"
     t.string "from"
     t.string "to"
+    t.integer "user_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 

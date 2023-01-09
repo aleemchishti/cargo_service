@@ -5,7 +5,7 @@ class Sender::DashboardsController < ApplicationController
 	def index; end
 
 	def only_senders
-    if current_user.role=='sender'
+    if current_user.sender?
       sender_dashboards_path
     else
       root_path

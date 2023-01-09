@@ -3,17 +3,17 @@ class OrdersController < ApplicationController
 	before_action :redirect_if_traveler, only: %i[new]
 
 	def index
-	  @orders = Order.where(user_id:current_user.id)
+		@orders = current_user.orders 
 	end
 
 	def new
-	    if current_user.role=='sender'
+	    if current_user.sender?
 	      @order = Order.new
 	    end 
 	end
 
 	def create 
-	  	if current_user.role=='sender'
+	  	if current_user.sender?
 		 @order = Order.new(order_params)
 		 @order.user_id = current_user.id
 		   	if  @order.save 
@@ -30,13 +30,13 @@ class OrdersController < ApplicationController
 	end 
 		
 	def edit
-		if current_user.role=='sender'
+		if current_user.sender?
 			@order = Order.find_by(id: params[:id])
 		end 
 	end
 
 	def update 
-	 	if current_user.role=='sender'
+	 	if current_user.sender
 			@order = Order.find_by(id: params[:id])
 			if @order.update(order_params)
 				redirect_to orders_path
@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
 	end	
 
 	def destroy
-		if current_user.role=='sender'
+		if current_user.sender?
 			@order = Order.find_by(id: params[:id])
 			@order.destroy
 			redirect_to orders_url , :notice => "order has been deleted"
@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
 	end
 
 	def redirect_if_traveler
-		if current_user.role=='traveler'
+		if current_user.traveler?
 			redirect_to root_path,notice:"not authorized"
 		end 
 	end 
