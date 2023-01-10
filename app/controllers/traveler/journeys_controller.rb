@@ -1,8 +1,9 @@
 class Traveler::JourneysController < ApplicationController
+  
   before_action :authenticate_user!
 
   def index
-    @journeys = Journey.all
+    @journeys = current_user.journeys
   end
 
   def new
@@ -25,7 +26,7 @@ class Traveler::JourneysController < ApplicationController
   end
 
   def show
-      @journey = Journey.find_by(id:params[:id])
+    @journey = Journey.find_by(id:params[:id])
   end 
   
   def edit
@@ -58,7 +59,6 @@ class Traveler::JourneysController < ApplicationController
       @journeys=Journey.all
     end
   end  
-
 
   private 
 

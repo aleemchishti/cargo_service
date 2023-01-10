@@ -4,21 +4,21 @@ class OrdersController < ApplicationController
 
 	def index
 		if current_user.sender?
-		@orders = current_user.s_orders 
+			@orders = current_user.s_orders 
 		else
-		@orders = current_user.t_orders
+			@orders = current_user.t_orders
 		end
 	end
 
 	def new
-	    if current_user.sender?
-	      @order = Order.new
-	    end 
+    if current_user.sender?
+      @order = Order.new
+    end 
 	end
 
 	def create 
-	  	if current_user.s_orders.create(order_params) 
-			 redirect_to orders_path
+	  if current_user.s_orders.create(order_params) 
+			redirect_to orders_path
 		else
 			render :new 
 		end  
