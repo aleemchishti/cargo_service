@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
 	private 
 
 	def order_params
-		params.require(:order).permit(:traveler_id, :from, :to, :weight, :sender_name, :receiver_name, :contact, :capacity)
+		params.require(:order).permit(:traveler_id, :from, :to, :weight, :sender_name, :receiver_name, :contact, :capacity, line_items_attributes: [:id, :item, :_destroy])
 	end
 
 	def redirect_if_traveler

@@ -3,7 +3,10 @@ class Traveler::JourneysController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @journeys = current_user.journeys
+    @q = Journey.ransack(params[:q])
+    @journeys = @q.result(distinct: true)
+    
+    @journeys = @journeys.where(user_id: current_user.id)
   end
 
   def new

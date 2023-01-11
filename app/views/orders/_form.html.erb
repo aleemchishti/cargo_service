@@ -1,7 +1,7 @@
- <%= form_with(model: order) do |form| %>
+ <%= form_for order do |form| %>
 
   <br>
-  <div class="form-group">
+  <div class="form-group row">
     <%= form.label :travelers, class:'form-label mb-2 mt-3' %><br />
     <%= form.select :traveler_id,User.traveler.map{|u| [u.first_name, u.id]},{prompt:'Select'},{class: "form-control"}%>
   <div class="form-group">
@@ -17,11 +17,11 @@
     <%= form.select :weight,Journey.all.pluck(:capacity),{prompt:'Select'},{class: "form-control"}%>
   </div>
   <div class='form-group'>
-    <%= form.label :sender_name, class:'form-label mb-2 mt-3',rows:'4',cols:'50' %>
+    <%= form.label :sender_name, class:'form-label mb-2 mt-3'%>
     <%= form.text_field :sender_name, class:'form-control form-control-lg' %>
   </div>
   <div class='form-group'>
-    <%= form.label :receiver_name, class:'form-label mb-2 mt-3',rows:'4',cols:'50' %>
+    <%= form.label :receiver_name, class:'form-label mb-2 mt-3'%>
     <%= form.text_field :receiver_name, class:'form-control form-control-lg' %>
   </div>
 
@@ -30,6 +30,14 @@
     <%= form.number_field :contact, class:'form-control form-control-lg'%>
   </div>
 
+   <div id="line_items">
+     <%= form.fields_for :line_items do |line_item| %>
+      <%= render 'line_item_fields', f: line_item %>
+     <% end %>
+    <div class="links">
+      <%= link_to_add_association 'add line item', form, :line_items %>
+    </div>
+   </div>
   <br>
 
   <div>

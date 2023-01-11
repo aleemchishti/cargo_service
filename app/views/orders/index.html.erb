@@ -17,7 +17,7 @@
     <tbody>
       <% @orders.each do |order| %>
         <tr class="w3-hover-white">
-        <td> <%=order.traveler_id%></td>
+        <td> <%=order.traveler.first_name%></td>
         <td> <%=order.sender_name%></td>
         <td> <strong><%= order.from %></strong> </td>
         <td> <strong><%= order.to%></strong> </td>

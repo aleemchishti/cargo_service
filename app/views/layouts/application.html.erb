@@ -59,7 +59,7 @@
           <% if current_user %>
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Profile
+            <strong><%=current_user.role%></strong>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="nav-item active">
@@ -74,7 +74,7 @@
       </div>
     </nav>
     <div
-      class="bg-image"style="background-image: url('https://www.purolatorinternational.com/content/uploads/2021/12/iStock-1124533318-1.jpg');height: 100vh;"> 
+      class="bg-image"style="background-image: url('https://www.purolatorinternational.com/content/uploads/2021/12/iStock-1124533318-1.jpg');height: 120vh;"> 
       <br>
       <%=yield%>
     </div>

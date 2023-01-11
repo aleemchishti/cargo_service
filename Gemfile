@@ -30,6 +30,13 @@ gem "jbuilder"
 gem "devise"
 
 gem 'country-select'
+gem 'jquery-rails'
+
+gem "cocoon"
+gem "ransack"
+
+gem "rspec-rails"
+gem "factory_bot_rails"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
