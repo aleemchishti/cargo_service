@@ -17,16 +17,16 @@
     <tbody>
       <% @orders.each do |order| %>
         <tr class="w3-hover-white">
-        <td> <%=order.traveler.first_name%></td>
-        <td> <%=order.sender_name%></td>
-        <td> <strong><%= order.from %></strong> </td>
-        <td> <strong><%= order.to%></strong> </td>
-        <td> <%= order.weight %> </td>
-        <td> <strong><%= order.receiver_name %></strong> </td>
-        <td> <strong><%= order.contact %></strong> </td>
-        <td><%= link_to 'View',order_url(order), class: 'btn btn-light'%></td>  
-        <td><%= link_to 'Delete',order_url(order), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %></td>
-      </tr>
+          <td> <%=order.traveler.first_name%></td>
+          <td> <%=order.sender_name%></td>
+          <td> <strong><%= order.from %></strong> </td>
+          <td> <strong><%= order.to%></strong> </td>
+          <td> <%= order.weight %> </td>
+          <td> <strong><%= order.receiver_name %></strong> </td>
+          <td> <strong><%= order.contact %></strong> </td>
+          <td><%= link_to 'View',order_url(order), class: 'btn btn-light'%></td>  
+          <td><%= link_to 'Delete',order_url(order), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger' %></td>
+        </tr>
       <% end %>
     </tbody>
   </table>

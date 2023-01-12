@@ -59,7 +59,9 @@ class Traveler::JourneysController < ApplicationController
 
   def journey_list
     if current_user.sender?
-      @journeys=Journey.all
+      @journeys = Journey.all
+      @q = Journey.ransack(params[:q])
+      @journeys = @q.result(distinct:true)
     end
   end  
 

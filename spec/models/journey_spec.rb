@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Journey, type: :model do
+RSpec.describe Traveler::JourneyController, type: :model do
   context 'when creating a Journey' do 
     let (:user) {create :user}
     let(:journey) {create:journey, user_id: user.id}

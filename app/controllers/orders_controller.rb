@@ -1,13 +1,10 @@
 class OrdersController < ApplicationController
 	before_action :authenticate_user!
 	before_action :redirect_if_traveler, only: %i[new]
+	before_action :set_order, only: %i[ show edit update destroy ]
 
 	def index
-		if current_user.sender?
-			@orders = current_user.s_orders 
-		else
-			@orders = current_user.t_orders
-		end
+		@orders = current_user.sender? ? current_user.s_orders : current_user.t_orders
 	end
 
 	def new
@@ -24,19 +21,15 @@ class OrdersController < ApplicationController
 		end  
 	end 
 
-	def show
-		@order = Order.find_by(id: params[:id])
-	end 
+	def show; end 
 		
 	def edit
 		if current_user.sender?
-			@order = Order.find_by(id: params[:id])
 		end 
 	end
 
 	def update 
 	 	if current_user.sender?
-			@order = Order.find_by(id: params[:id])
 			if @order.update(order_params)
 				redirect_to orders_path
 			else
@@ -47,7 +40,6 @@ class OrdersController < ApplicationController
 
 	def destroy
 		if current_user.sender?
-			@order = Order.find_by(id: params[:id])
 			@order.destroy
 			redirect_to orders_url , :notice => "order has been deleted"
 		end
@@ -61,6 +53,10 @@ class OrdersController < ApplicationController
 
 	private 
 
+	def set_order
+    @order = Order.find(params[:id])
+  end
+	
 	def order_params
 		params.require(:order).permit(:traveler_id, :from, :to, :weight, :sender_name, :receiver_name, :contact, :capacity, line_items_attributes: [:id, :item, :_destroy])
 	end

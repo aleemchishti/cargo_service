@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+	validates :sender_name, :receiver_name, :weight, :contact, :from, :to, presence: true 
+	
 	belongs_to :traveler, foreign_key: 'traveler_id',class_name: 'User'
 	belongs_to :sender, foreign_key: 'sender_id',class_name: 'User'
 	
