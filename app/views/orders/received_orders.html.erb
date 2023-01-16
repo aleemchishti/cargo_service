@@ -1,0 +1,30 @@
+<div class='container'> 
+  <h1> Received Orders</h1>
+  <table>
+    <thead>
+      <table class="w3-table-all">
+      <tr class="w3-light-grey w3-hover-grey">
+        <th>Sender Name</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Weight KG</th>
+        <th>Receiver Name</th>
+        <th>Contact</th>
+        <th colspan = '1'>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr class="w3-hover-white">
+        <td> <strong><%=order.sender_name%></strong></td>
+        <td> <strong><%= order.from %></strong> </td>
+        <td> <strong><%= order.to%></strong> </td>
+        <td> <%= order.weight %> </td>
+        <td> <strong><%= order.receiver_name %></strong> </td>
+        <td> <%= order.contact %> </td>
+        <td><%= link_to 'Confirm',received_orders_path, class: 'btn btn-danger'%></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

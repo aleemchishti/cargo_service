@@ -1,43 +1,35 @@
 class OrdersController < ApplicationController
 	before_action :authenticate_user!
 	before_action :redirect_if_traveler, only: %i[new]
+	before_action :set_order, only: %i[ show edit update destroy ]
 
 	def index
-		@orders = current_user.orders 
+		@orders = current_user.sender? ? current_user.s_orders : current_user.t_orders
 	end
 
 	def new
-	    if current_user.sender?
-	      @order = Order.new
-	    end 
+    if current_user.sender?
+      @order = Order.new
+    end 
 	end
 
 	def create 
-	  	if current_user.sender?
-		 @order = Order.new(order_params)
-		 @order.user_id = current_user.id
-		   	if  @order.save 
-			 redirect_to orders_path
-			else
-			 render :new 
-			 flash.alert = "User not found."
-			end 
-		end 
+	  if current_user.s_orders.create(order_params) 
+			redirect_to orders_path
+		else
+			render :new 
+		end  
 	end 
 
-	def show
-		@order = Order.find_by(id: params[:id])
-	end 
+	def show; end 
 		
 	def edit
 		if current_user.sender?
-			@order = Order.find_by(id: params[:id])
 		end 
 	end
 
 	def update 
-	 	if current_user.sender
-			@order = Order.find_by(id: params[:id])
+	 	if current_user.sender?
 			if @order.update(order_params)
 				redirect_to orders_path
 			else
@@ -48,20 +40,25 @@ class OrdersController < ApplicationController
 
 	def destroy
 		if current_user.sender?
-			@order = Order.find_by(id: params[:id])
 			@order.destroy
 			redirect_to orders_url , :notice => "order has been deleted"
 		end
-	end 
-
-	def sender_orders
-	    @orders = Order.where(user_id:current_user.id)
 	end
+
+	def received_orders
+		if current_user.traveler?
+			@orders = current_user.t_orders
+		end 
+	end 
 
 	private 
 
+	def set_order
+    @order = Order.find(params[:id])
+  end
+	
 	def order_params
-		params.require(:order).permit(:from,:to,:weight,:sender_name, :receiver_name,:contact,:capacity)
+		params.require(:order).permit(:traveler_id, :from, :to, :weight, :sender_name, :receiver_name, :contact, :capacity, line_items_attributes: [:id, :item, :_destroy])
 	end
 
 	def redirect_if_traveler

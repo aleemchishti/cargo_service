@@ -1,8 +1,12 @@
 class Traveler::JourneysController < ApplicationController
+  
   before_action :authenticate_user!
 
   def index
-    @journeys = Journey.all
+    @q = Journey.ransack(params[:q])
+    @journeys = @q.result(distinct: true)
+    
+    @journeys = @journeys.where(user_id: current_user.id)
   end
 
   def new
@@ -25,7 +29,7 @@ class Traveler::JourneysController < ApplicationController
   end
 
   def show
-      @journey = Journey.find_by(id:params[:id])
+    @journey = Journey.find_by(id:params[:id])
   end 
   
   def edit
@@ -55,10 +59,11 @@ class Traveler::JourneysController < ApplicationController
 
   def journey_list
     if current_user.sender?
-      @journeys=Journey.all
+      @journeys = Journey.all
+      @q = Journey.ransack(params[:q])
+      @journeys = @q.result(distinct:true)
     end
   end  
-
 
   private 
 
