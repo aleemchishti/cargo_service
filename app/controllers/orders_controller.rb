@@ -72,7 +72,7 @@ class OrdersController < ApplicationController
 
 	def redirect_if_traveler
 		if current_user.traveler?
-			redirect_to root_path, notice:"not authorized"
+			redirect_to root_path, alert:"not authorized"
 		end 
 	end 
 end

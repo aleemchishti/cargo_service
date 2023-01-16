@@ -12,7 +12,6 @@ RSpec.describe Traveler::JourneysController, type: :controller do
       get :new
       expect(response).to render_template('traveler/journeys/new')
       post :create, params: {journey: {from:'Lahore', to: 'Islamabad', departure: '2023-01-15 00:00:00 UTC', rate: 234, capacity: 234}}
-      # debugger
       expect(Journey.count).to eq(1)
       expect(response).to redirect_to(traveler_journeys_path) 
     end
@@ -27,7 +26,6 @@ RSpec.describe Traveler::JourneysController, type: :controller do
 
     
     it 'should render edit and update journey' do
-     # debugger
      get :edit
      patch :update, params: {journey: {from:'gsd', to: 'Islamabad', departure: '2023-01-15 00:00:00 UTC', rate: 234, capacity: 234}}
      expect(response).to redirect_to(traveler_journeys_path) 
