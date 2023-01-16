@@ -22,7 +22,13 @@
         <td> <%= order.weight %> </td>
         <td> <strong><%= order.receiver_name %></strong> </td>
         <td> <%= order.contact %> </td>
-        <td><%= link_to 'Confirm',received_orders_path, class: 'btn btn-danger'%></td>
+        <td>
+          <% if order.status.eql? 'pending' %>
+            <%= link_to 'Confirm',update_status_order_path(order), data: { turbo_confirm: "Are you sure?" }, class: 'btn btn-danger'%>
+          <% else %>
+            <%= order.status %>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

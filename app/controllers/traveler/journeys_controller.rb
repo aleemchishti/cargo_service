@@ -1,6 +1,8 @@
 class Traveler::JourneysController < ApplicationController
   
   before_action :authenticate_user!
+  before_action :authorized_traveler, except: [:journey_list]
+  before_action :get_journey, except: [:new, :index, :create]
 
   def index
     @q = Journey.ransack(params[:q])
@@ -10,64 +12,54 @@ class Traveler::JourneysController < ApplicationController
   end
 
   def new
-    if current_user.traveler?
-      @journey = Journey.new
-      @journey.user_id = current_user.id
-    end 
+    @journey = Journey.new
   end
 
   def create 
-    if current_user.traveler?
-      @journey = Journey.new(journey_params)
-      @journey.user_id = current_user.id
-      if @journey.save 
-        redirect_to traveler_journey_url(@journey)
-      else
-        render :new
-      end 
-    end 
+    @journey = Journey.new(journey_params)
+    @journey.user_id = current_user.id
+    if @journey.save!
+      redirect_to traveler_journeys_path
+    else
+      render :new
+    end
   end
 
-  def show
-    @journey = Journey.find_by(id:params[:id])
-  end 
+  def show; end 
   
-  def edit
-    if current_user.traveler?
-     @journey = Journey.find_by(id:params[:id])
-    end
-  end 
+  def edit; end 
 
   def update 
-    if current_user.traveler?
-      @journey = Journey.find_by(id:params[:id])
-      if @journey.update(journey_params)
-        redirect_to traveler_journey_path
-      else
-        render :edit
-      end 
+    if @journey.update(journey_params)
+      redirect_to traveler_journeys_path
+    else
+      render :edit
     end 
   end 
 
   def destroy
-    if current_user.traveler?
-      @journey = Journey.find_by(id:params[:id])
-      @journey.destroy
-      redirect_to traveler_journey_url
-    end 
+    @journey.destroy
+    redirect_to traveler_journeys_path
   end 
 
   def journey_list
-    if current_user.sender?
-      @journeys = Journey.all
-      @q = Journey.ransack(params[:q])
-      @journeys = @q.result(distinct:true)
-    end
+    return redirect_to root_path unless current_user.sender?
+
+    @q = Journey.ransack(params[:q])
+    @journeys = @q.result(distinct:true)
   end  
 
   private 
 
-    def journey_params
-      params.require(:journey).permit(:from, :to, :departure, :rate, :capacity)
-    end
+  def authorized_traveler
+    redirect_to root_path unless current_user.traveler?
+  end
+
+  def get_journey
+    @journey = Journey.find_by(id: params[:id])
+  end
+
+  def journey_params
+    params.require(:journey).permit(:from, :to, :departure, :rate, :capacity)
+  end
 end

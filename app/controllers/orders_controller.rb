@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 	before_action :authenticate_user!
 	before_action :redirect_if_traveler, only: %i[new]
-	before_action :set_order, only: %i[ show edit update destroy ]
+	before_action :set_order, only: %i[ show edit update destroy update_status ]
 
 	def index
 		@orders = current_user.sender? ? current_user.s_orders : current_user.t_orders
@@ -49,7 +49,16 @@ class OrdersController < ApplicationController
 		if current_user.traveler?
 			@orders = current_user.t_orders
 		end 
-	end 
+	end
+
+	def update_status
+		if current_user.traveler?
+			@order.update(status: 'Confirmed')
+			redirect_to received_orders_path
+		else
+			redirect_to root_path
+		end
+	end
 
 	private 
 
@@ -63,7 +72,7 @@ class OrdersController < ApplicationController
 
 	def redirect_if_traveler
 		if current_user.traveler?
-			redirect_to root_path,notice:"not authorized"
+			redirect_to root_path, notice:"not authorized"
 		end 
 	end 
 end

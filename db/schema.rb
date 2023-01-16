@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_09_061018) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_16_124058) do
   create_table "journeys", force: :cascade do |t|
     t.string "from"
     t.string "to"
@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_061018) do
     t.string "to"
     t.integer "traveler_id"
     t.integer "sender_id"
+    t.string "status", default: "pending"
   end
 
   create_table "users", force: :cascade do |t|
