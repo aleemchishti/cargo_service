@@ -1,4 +1,17 @@
   <%= form_for [:traveler,journey] do |form| %>
+
+  <% if journey.errors.any? %>
+    <div style="color: black">
+      <h2><%= pluralize(journey.errors.count, "error") %> prohibited this journey from being saved:</h2>
+
+      <ul>
+        <% journey.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <br>
   <div class='form-group'>
     <%= form.label :from,class:'form-label mb-2 mt-3' %>

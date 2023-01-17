@@ -19,7 +19,7 @@ class Traveler::JourneysController < ApplicationController
     @journey = Journey.new(journey_params)
     @journey.user_id = current_user.id
     if @journey.save!
-      redirect_to traveler_journeys_path
+      redirect_to traveler_journeys_path, alert: 'You have successfuly created a journey'
     else
       render :new
     end
@@ -31,7 +31,7 @@ class Traveler::JourneysController < ApplicationController
 
   def update 
     if @journey.update(journey_params)
-      redirect_to traveler_journeys_path
+      redirect_to traveler_journeys_path, alert:'You have updated the journey details'
     else
       render :edit
     end 
@@ -39,7 +39,7 @@ class Traveler::JourneysController < ApplicationController
 
   def destroy
     @journey.destroy
-    redirect_to traveler_journeys_path
+    redirect_to traveler_journeys_path, alert:'Journey deletion successfull'
   end 
 
   def journey_list

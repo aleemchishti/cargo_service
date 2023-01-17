@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     end 
 	end
 
-	def create 
+	def create
 	  if current_user.s_orders.create(order_params) 
 			redirect_to orders_path
 		else
@@ -24,11 +24,10 @@ class OrdersController < ApplicationController
 	def show; end 
 		
 	def edit
-		if current_user.sender?
-		end 
-	end
+	end 
 
 	def update 
+		# debugger
 	 	if current_user.sender?
 			if @order.update(order_params)
 				redirect_to orders_path
@@ -41,7 +40,7 @@ class OrdersController < ApplicationController
 	def destroy
 		if current_user.sender?
 			@order.destroy
-			redirect_to orders_url , :notice => "order has been deleted"
+			redirect_to orders_url , alert:  "order has been deleted"
 		end
 	end
 

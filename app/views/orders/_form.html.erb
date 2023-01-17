@@ -1,5 +1,17 @@
  <%= form_for order do |form| %>
 
+ <% if order.errors.any? %>
+    <div style="color: black">
+      <h2><%= pluralize(order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+      <ul>
+        <% order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <br>
   <div class="form-group">
     <%= form.label :travelers, class:'form-label mb-2 mt-3' %><br />
@@ -34,7 +46,7 @@
 
    <div id="line_items">
      <%= form.fields_for :line_items do |line_item| %>
-      <%= render 'line_item_fields', f: line_item %>
+     <%= render 'line_item_fields', f: line_item %>
      <% end %>
     <div class="links">
       <%= link_to_add_association 'add line item', form, :line_items %>

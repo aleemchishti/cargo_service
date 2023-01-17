@@ -14,23 +14,11 @@
     <%= javascript_include_tag :cocoon %>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <nav class="navbar navbar-light bg-light">
-        <div class="container-row">
-          <a class="navbar-brand" href="#">
-            <img src="https://www.clipartmax.com/png/middle/306-3067914_blue-and-red-airline-logo.png" alt="Logo" width="120" height="30">
-          </a>
-        </div>
-      </nav>
-      <a><%=link_to 'Courierails',root_path,class:"navbar-brand"%></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      <%= render 'layouts/navbar' %>
-    </nav>
+    <%= render 'layouts/navbar' %>
     <div
       class="bg-image"style="background-image: url('https://www.purolatorinternational.com/content/uploads/2021/12/iStock-1124533318-1.jpg');height: 120vh;"> 
       <br>
+      <%= render "layouts/errors" if alert || notice %>
       <%=yield%>
     </div>
   </body>

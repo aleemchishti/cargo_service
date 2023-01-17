@@ -19,6 +19,7 @@ RSpec.describe Traveler::JourneysController, type: :controller do
 
   describe "Update Journey" do
     let(:user) { create :user, role: User.roles[:traveler] }
+    let(:journey) { create :journey, user_id:user.id }
     
     before(:each) do 
      sign_in(user)
@@ -26,8 +27,10 @@ RSpec.describe Traveler::JourneysController, type: :controller do
 
     
     it 'should render edit and update journey' do
-     get :edit
-     patch :update, params: {journey: {from:'gsd', to: 'Islamabad', departure: '2023-01-15 00:00:00 UTC', rate: 234, capacity: 234}}
+     get :edit  
+     expect(response).to render_template("journey/edit")
+     expect(response).to have_http_status(200)
+     patch traveler_journey_url(journey), params: {journey: {from:'gsd', to: 'Islamabad', departure: '2023-01-15 00:00:00 UTC', rate: 234, capacity: 234}}
      expect(response).to redirect_to(traveler_journeys_path) 
      expect(assigns[:journey].from).to eq('gsd')
     end
