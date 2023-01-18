@@ -10,12 +10,13 @@ class OrdersController < ApplicationController
 	def new
     if current_user.sender?
       @order = Order.new
+      @order.line_items.build 
     end 
 	end
 
 	def create
 	  if current_user.s_orders.create(order_params) 
-			redirect_to orders_path
+			redirect_to orders_path, alert: 'Order creation successful'
 		else
 			render :new 
 		end  
@@ -26,8 +27,7 @@ class OrdersController < ApplicationController
 	def edit
 	end 
 
-	def update 
-		# debugger
+	def update
 	 	if current_user.sender?
 			if @order.update(order_params)
 				redirect_to orders_path

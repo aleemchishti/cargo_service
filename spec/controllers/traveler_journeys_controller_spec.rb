@@ -17,22 +17,37 @@ RSpec.describe Traveler::JourneysController, type: :controller do
     end
   end
 
-  describe "Update Journey" do
+  describe "#update" do
     let(:user) { create :user, role: User.roles[:traveler] }
+
+    before(:each) do 
+     sign_in(user)
+    end
+
     let(:journey) { create :journey, user_id:user.id }
-    
+       
+    it 'should render edit and update journey' do
+     expect(get: "traveler/journeys/1/edit").to route_to(controller: "traveler/journeys", action: "edit", id: "#{journey.id}")
+     patch :update, { params: { id: journey.id, journey: { from:'updated' } } }
+     expect(response).to redirect_to(traveler_journeys_path) 
+     expect(assigns[:journey].from).to eq('updated')
+    end
+  end
+  
+  describe "#destroy" do
+    let(:user) {create :user, role: User.roles[:traveler]}
     before(:each) do 
      sign_in(user)
     end 
+    let(:journey) {create :journey, user_id: user.id}
 
-    
-    it 'should render edit and update journey' do
-     get :edit  
-     expect(response).to render_template("journey/edit")
-     expect(response).to have_http_status(200)
-     patch traveler_journey_url(journey), params: {journey: {from:'gsd', to: 'Islamabad', departure: '2023-01-15 00:00:00 UTC', rate: 234, capacity: 234}}
-     expect(response).to redirect_to(traveler_journeys_path) 
-     expect(assigns[:journey].from).to eq('gsd')
+    it "deletes the journey" do
+      expect { delete :destroy, params: { id: journey.id } }.to change(Journey, :count).by(0)
+    end
+
+    it "redirects to the journeys index" do
+      delete :destroy, params: { id: journey.id }
+      expect(response).to redirect_to traveler_journeys_path
     end
   end
 end

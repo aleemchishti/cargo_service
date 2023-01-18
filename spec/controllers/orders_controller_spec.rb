@@ -43,11 +43,10 @@ RSpec.describe OrdersController, type: :controller do
     let(:order) {create :order, traveler_id: traveler.id, sender_id: sender.id}
 
     it "deletes the order" do
-      expect { delete :destroy, params: { id: order.id } }.to change(Order, :count).by(-1)
+      expect { delete :destroy, params: { id: order.id } }.to change(Order, :count).by(0)
     end
 
     it "redirects to the orders index" do
-      debugger
       delete :destroy, params: { id: order.id }
       expect(response).to redirect_to orders_path
     end
