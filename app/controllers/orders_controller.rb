@@ -10,7 +10,6 @@ class OrdersController < ApplicationController
 	def new
     if current_user.sender?
       @order = Order.new
-      @order.line_items.build 
     end 
 	end
 
@@ -24,8 +23,7 @@ class OrdersController < ApplicationController
 
 	def show; end 
 		
-	def edit
-	end 
+	def edit; end 
 
 	def update
 	 	if current_user.sender?
