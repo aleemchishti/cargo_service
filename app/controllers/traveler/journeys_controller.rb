@@ -5,9 +5,9 @@ class Traveler::JourneysController < ApplicationController
   before_action :get_journey, except: [:new, :index, :create]
 
   def index
+
     @q = Journey.ransack(params[:q])
     @journeys = @q.result(distinct: true)
-    
     @journeys = @journeys.where(user_id: current_user.id)
   end
 

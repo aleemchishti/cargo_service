@@ -28,8 +28,7 @@
     
     <div class="form-group">
       <%= f.label :role, class:'form-label mb-2 mt-3' %><br />
-      <%= f.select :role, options_for_select(User.roles), {}, { class: 'form-control'} %>
-    </div>
+      <%= f.select :role, options_for_select([['Sender', 'sender'], ['Traveler', 'traveler'], ['Admin', 'admin']]), id: :role %> </div>
 
     <div class="form-group">
       <%= f.label :password,class:'form-label mb-2 mt-3' %>
