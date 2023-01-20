@@ -37,8 +37,7 @@ gem "ransack"
 
 gem "rspec-rails"
 gem "factory_bot_rails"
-gem 'rails-controller-testing'
-
+gem "rails-controller-testing"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
